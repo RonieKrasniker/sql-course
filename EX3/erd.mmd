@@ -1,0 +1,42 @@
+erDiagram
+    HOSPITAL {
+        int hid PK
+        string name
+    }
+    DOCTOR {
+        int did PK "Partial Key (Discriminator)"
+        string name
+    }
+    PATIENT {
+        int pid PK
+        string name
+        float height
+        float weight
+        string gender
+    }
+    DISEASE {
+        int kid PK
+        string name
+        string severity
+    }
+    MEDICINE {
+        int mid PK
+        string name
+    }
+    RATING {
+        int rid PK
+        int score
+    }
+    OPINION {
+        string comment
+    }
+
+    HOSPITAL ||--|{ DOCTOR : employs
+    DOCTOR }|--|| DOCTOR : "consults with"
+    DOCTOR ||--|{ PATIENT : treats
+    PATIENT }|--|| DISEASE : "diagnosed with (new)"
+    PATIENT }o--|| DISEASE : "had (previous)"
+    DISEASE }|--|| MEDICINE : "treated by"
+    PATIENT ||--|| RATING : gives
+    RATING }|--|| DOCTOR : "rates"
+    RATING ||--o| OPINION : "is a"
